@@ -11,11 +11,15 @@ def load_data():
             train_ds,test_ds: the preprocessed datasets
     """
 
-    train_ds, test_ds = tfds.load(name="fashion_mnist", split=[
-                                  "train", "test"], as_supervised=True)
+    train_ds, test_ds = tfds.load(name="fashion_mnist", split=['train','test'], as_supervised=True)
+
+    #train_ds = train_dsf[:49000]
+    #remaining = train_dsf[49000:]
+    valid_ds = 0
     train_ds = preprocess(train_ds)
     test_ds = preprocess(test_ds)
-    return train_ds, test_ds
+    #valid_ds = preprocess(valid_ds)
+    return train_ds, test_ds, valid_ds
 
 
 def preprocess(ds):
@@ -34,7 +38,7 @@ def preprocess(ds):
     ds = ds.cache()
     # shuffle, batch, prefetch our dataset
     ds = ds.shuffle(5000)
-    ds = ds.batch(64)
+    ds = ds.batch(128)
     ds = ds.prefetch(20)
     return ds
 
@@ -116,22 +120,16 @@ def visualize(train_losses, valid_losses, valid_accuracies):
       valid_accuracies = mean accuracies (testing dataset) per epoch
     """
 
-    titles = ["SGD", "SGD_l1-l2", "SGD_drop-0.5", "SGD_l1-l2_drop-0.5",
-              "Adam", "Adam_l1-l2", "Adam_drop-0.5", "Adam_l1-l2_drop-0.5", ]
-    fig, axs = plt.subplots(2, 4)
+    fig, axs = plt.subplots(2,1)
     fig.set_size_inches(13, 6)
 
-    # making a grid with subplots
-    for i in range(2):
-        for j in range(4):
-            axs[i, j].plot(train_losses[i*4+j])
-            axs[i, j].plot(valid_losses[i*4+j])
-            axs[i, j].plot(valid_accuracies[i*4+j])
-            last_accuracy = valid_accuracies[i*4+j][-1].numpy()
-            axs[i, j].sharex(axs[0, 0])
-            axs[i, j].set_title(
-                titles[i*4+j]+" \n Last Accuracy: "+str(round(last_accuracy, 4)))
+
+    axs[0].plot(train_losses)
+    axs[0].plot(valid_losses)
+    axs[1].plot(valid_accuracies)
+    axs[1].sharex(axs[0])
 
     fig.legend([" Train_ds loss", " Valid_ds loss", " Valid_ds accuracy"])
     plt.xlabel("Training epoch")
     fig.tight_layout()
+    plt.show()
