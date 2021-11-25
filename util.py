@@ -11,15 +11,13 @@ def load_data():
             train_ds,test_ds: the preprocessed datasets
     """
 
-    train_ds, test_ds = tfds.load(name="fashion_mnist", split=['train','test'], as_supervised=True)
+    train_ds, valid_ds, test_ds, = tfds.load(name="fashion_mnist", split=['train[0%:80%]','train[80%:100%]','test'], as_supervised=True)
 
-    #train_ds = train_dsf[:49000]
-    #remaining = train_dsf[49000:]
-    valid_ds = 0
     train_ds = preprocess(train_ds)
+    valid_ds = preprocess(valid_ds)
     test_ds = preprocess(test_ds)
-    #valid_ds = preprocess(valid_ds)
-    return train_ds, test_ds, valid_ds
+
+    return train_ds, valid_ds, test_ds
 
 
 def preprocess(ds):
