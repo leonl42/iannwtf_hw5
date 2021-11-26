@@ -8,3 +8,4 @@ Done:
 To-Do:
 - integrate layer in model
 - computing rfield by hand
+- final commenting
