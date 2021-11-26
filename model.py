@@ -18,7 +18,7 @@ class MyModel(tf.keras.Model):
 
         self._layers = layers
 
-    def call(self, inputs):
+    def call(self, inputs,is_training):
         """
         Performs a forward step in our MLP
           Args:
@@ -29,6 +29,6 @@ class MyModel(tf.keras.Model):
 
         output = inputs
         for layer in self._layers:
-            output = layer(output)
+            output = layer(output,training=is_training)
 
         return output

@@ -27,33 +27,33 @@ def classify(model, optimizer, num_epochs, train_ds, valid_ds):
     valid_accuracies = []
 
     # testing on our valid_ds once before we begin
-    valid_loss, valid_accuracy = test(model, valid_ds, cross_entropy_loss)
+    valid_loss, valid_accuracy = test(model, valid_ds, cross_entropy_loss,False)
     valid_losses.append(valid_loss)
     valid_accuracies.append(valid_accuracy)
 
     # Testing on our train_ds once before we begin
-    train_loss, _ = test(model, train_ds, cross_entropy_loss)
+    train_loss, _ = test(model, train_ds, cross_entropy_loss,False)
     train_losses.append(train_loss)
 
     # training our model for num_epochs epochs.
     for epoch in range(num_epochs):
         print(
-            f'Epoch: {str(epoch)} starting with accuracy {valid_accuracies[-1]} and loss {valid_losses[-1]}')
+            f'Epoch: {str(epoch+1)} starting with (validation set) accuracy {valid_accuracies[-1]} and loss {valid_losses[-1]}')
 
         # training (and calculating loss while training)
         epoch_loss_agg = []
 
         for input, target in train_ds:
             train_loss = train_step(
-                model, input, target, cross_entropy_loss, optimizer)
+                model, input, target, cross_entropy_loss, optimizer,True)
             epoch_loss_agg.append(train_loss)
 
         # track training loss
         train_losses.append(tf.reduce_mean(epoch_loss_agg))
-        print(f'Epoch: {str(epoch)} train loss: {train_losses[-1]}')
+        print(f'Epoch: {str(epoch+1)} train loss: {train_losses[-1]}')
 
         # testing our model in each epoch to track accuracy and loss on the validation set
-        valid_loss, valid_accuracy = test(model, valid_ds, cross_entropy_loss)
+        valid_loss, valid_accuracy = test(model, valid_ds, cross_entropy_loss,False)
         valid_losses.append(valid_loss)
         valid_accuracies.append(valid_accuracy)
 

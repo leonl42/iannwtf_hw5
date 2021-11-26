@@ -36,12 +36,12 @@ def preprocess(ds):
     ds = ds.cache()
     # shuffle, batch, prefetch our dataset
     ds = ds.shuffle(5000)
-    ds = ds.batch(128)
+    ds = ds.batch(32)
     ds = ds.prefetch(20)
     return ds
 
 
-def train_step(model, input, target, loss_function, optimizer):
+def train_step(model, input, target, loss_function, optimizer, is_training):
     """
     Performs a forward and backward pass for  one dataponit of our training set
       Args:
@@ -57,7 +57,7 @@ def train_step(model, input, target, loss_function, optimizer):
     with tf.GradientTape() as tape:
 
         # forward step
-        prediction = model(input)
+        prediction = model(input,is_training)
 
         # calculating loss
         loss = loss_function(target, prediction)
@@ -71,7 +71,7 @@ def train_step(model, input, target, loss_function, optimizer):
     return loss
 
 
-def test(model, test_data, loss_function):
+def test(model, test_data, loss_function, is_training):
     """
     Test our MLP, by going through our testing dataset,
     performing a forward pass and calculating loss and accuracy
@@ -91,7 +91,7 @@ def test(model, test_data, loss_function):
     for (input, target) in test_data:
 
         # forward step
-        prediction = model(input)
+        prediction = model(input,is_training)
 
         # calculating loss
         loss = loss_function(target, prediction)
@@ -119,8 +119,6 @@ def visualize(train_losses, valid_losses, valid_accuracies):
     """
 
     fig, axs = plt.subplots(2,1)
-    fig.set_size_inches(13, 6)
-
 
     axs[0].plot(train_losses)
     axs[0].plot(valid_losses)
