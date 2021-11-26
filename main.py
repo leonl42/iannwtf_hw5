@@ -32,7 +32,7 @@ rfield.compute_rfield_from_layers(layers, [28, 28])
 rfield.plot(p, (6, 6), (0, 0))
 
 with tf.device('/device:gpu:0'):
-    results, trained_model = classify(model, tf.keras.optimizers.Adam(0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-07), 10, train_ds, valid_ds)
+    results, trained_model = classify(model, tf.keras.optimizers.Adam(0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-07), 15, train_ds, valid_ds)
 
     _, test_accuracy = test(trained_model, test_ds,tf.keras.losses.CategoricalCrossentropy(),False)
     print("Accuracy:", test_accuracy)
