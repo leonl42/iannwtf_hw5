@@ -6,6 +6,7 @@ Done:
     - epochs = 15   
     - learning_rate = 0.001
     - some dropout and kerel_regualization (not all layers)
+    - and the layer paramenters of course
     
 To-Do:
 - integrate layer in model
