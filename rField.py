@@ -172,7 +172,7 @@ class rField:
                 kernels.append(list(layer.kernel_size))
                 paddings.append(layer.padding)
                 strides.append(list(layer.strides))
-            elif(isinstance(layer, tf.keras.layers.AveragePooling2D)):
+            elif(isinstance(layer, tf.keras.layers.AveragePooling2D) or isinstance(layer, tf.keras.layers.MaxPool2D)):
                 kernels.append(list(layer.pool_size))
                 paddings.append(layer.padding)
                 if layer.strides is None:
