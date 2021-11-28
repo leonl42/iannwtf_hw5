@@ -1,16 +1,10 @@
 # iannwtf_hw5
 
-Done: 
-  - finetuning > 90%
-    - batch_size = 32
-    - epochs = 15   
+## Some parameters of our model:
+    - batch_size = 32  
     - learning_rate = 0.001
+    - epochs = 15 
     - some dropout and kerel_regualization (not all layers)
-    - and the layer paramenters of course
-    
-To-Do:
-- visualizing results
-- final commenting
 
 ## Receiptive field of our model
 In our model we have the following layers:
