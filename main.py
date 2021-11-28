@@ -14,7 +14,7 @@ model = MyModel()
 
 # calculating receptive field
 rfield = ReceptiveField()
-# rfield for positon[0,0]
+# rfield for positon (cell) (0,0) in the output "image"
 rfield.add_rfield([0, 0])
 
 # get the first image from the dataset
