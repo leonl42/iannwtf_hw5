@@ -17,9 +17,11 @@ rfield = ReceptiveField()
 # rfield for positon[0,0]
 rfield.add_rfield([0, 0])
 
-elem = next(iter(next(iter(next(iter(train_ds))))))
+# get the first image from the dataset
+img = next(iter(next(iter(next(iter(train_ds))))))
+
 rfield.compute_rfield_from_layers(model.get_layers(), [28, 28])
-rfield.plot(tf.cast(elem,tf.int32).numpy(), (8, 8), (0, 0))
+rfield.plot(tf.cast(img,tf.int32).numpy(), (8, 8), (0, 0))
 
 
 with tf.device('/device:gpu:0'):

@@ -35,7 +35,8 @@ class ReceptiveField:
 
     def abstract_fields(self, kernel, padding, stride, size):
         """
-        Translate position of all currently stored rfields given the kernel_size, padding and stride
+        Translate position of all currently stored receptive fields given the kernel_size, padding and stride
+        (these arguments should be from the layer in which we want to translate)
             Args:
                 - kernel: <list<int>> Kernel size of the layer in which to translate
                 - padding: <string> "same" or "valid"
@@ -74,9 +75,10 @@ class ReceptiveField:
 
     def mutate_center(self, center, kernel, size):
         """
-        Each list of rfields over which the kernel iterates produces a new rfield in the next layer.
-        In order to get the corresponding rfields of a higher layer, we have to reverse this process given
-        the center on which the kernel produced the new field.
+        Each list of fields over which the kernel iterates produces a new field in the next layer.
+        In order to get the corresponding receptive fields of a higher layer 
+        (which were used by the kernel for producing a new field), 
+        we have to reverse this process given the center on which the kernel produced the new field.
             Args: 
                 - center: <list<int>> The rfield which represents the center
                 - kernel: <list<int>> Kernel size of the layer in which to mutate
