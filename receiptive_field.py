@@ -4,9 +4,9 @@ import tensorflow_datasets as tfds
 import tensorflow as tf
 
 
-class rField:
+class ReceiptiveField:
     """
-    Compute the rfield for a given sequence of Conv2D or AveragePooling2D layers
+    Compute the rfield for a given sequence of tensorflow layers
     Functions:
         __init__: constructor
         add_rfield: add a rfield
@@ -21,15 +21,15 @@ class rField:
 
     def __init__(self):
         """
-        Initilize the list of rfields
+        Initialize the list of rfields
         """
         self.r_field = []
 
     def add_rfield(self, r_field):
         """
-        Add an rfield to the list of current rfields
+        Add a rfield to the list of current rfields
             Args:
-                - r_field: List of coordinates.
+                - r_field: [list] List of coordinates.
         """
         self.r_field.append(r_field)
 
@@ -37,9 +37,9 @@ class rField:
         """
         Translate position of all currently stored rfields given the kernel_size, padding and stride
             Args:
-                - kernel: List of integers. Kernel size of the layer in which to translate
-                - padding: "same" or "valid"
-                - strides: List of integers. Stride size of the layer in which to translate
+                - kernel: [list<int>] Kernel size of the layer in which to translate
+                - padding: [string] "same" or "valid"
+                - strides: [list<int>] Stride size of the layer in which to translate
         """
         new_r_fields = []
         for field in self.r_field:
@@ -78,11 +78,11 @@ class rField:
         In order to get the corresponding rfields of a higher layer, we have to reverse this process given
         the center on which the kernel produced the new field.
             Args: 
-                - center: The rfield
-                - kernel: List of integers. Kernel size of the layer in which to translate
-                - size: List of integers. Size of the layer in which to translate
+                - center: [list<int>] The rfield which represents the center
+                - kernel: [list<int>] Kernel size of the layer in which to mutate
+                - size: [list<int>] Size of the layer in which to translate
             Returns:
-                - List of mutates/translated values
+                - [list<list<int>>] List of mutated/translated values
         """
         to_mutate = [center]
         # iterate over all dimensions of the kernel
@@ -128,10 +128,10 @@ class rField:
         """
         Compute the rfield from the raw values
             Args:
-                - kernels: List of kernels
-                - padding: List of paddings
-                - strides: List of strides
-                - img_size: List of integers. Size of the image for each dimension
+                - kernels: [list<list<int>>] List of kernels
+                - padding: [list<list<int>>] List of paddings
+                - strides: [list<string>] List of strides
+                - img_size: [list<int>] List of integers. Size of the image for each dimension
         """
         sizes = [img_size]
         for kernel, padding, stride in zip(kernels, paddings, strides):
@@ -161,8 +161,8 @@ class rField:
         """
         Compute rfield given list of tf layers
             Args:
-                - layers: List of tf Conv2D or AveragePool2D layers
-                - img_size: List of integers. Size of the image for each dimension
+                - layers: [list] List of tf Conv2D or AveragePool2D layers
+                - img_size: [list<int>]. Size of the image for each dimension
         """
         kernels = []
         paddings = []
@@ -187,7 +187,7 @@ class rField:
         """
         Plot the rfield given a base image
             Args:
-                - image: Has to have the shape: (_,_,1), where 1 represents a list of a single grayscale value
+                - image: [list<list<list<int>>>] Has to have the shape: (_,_,1), where 1 represents a list of a single grayscale value
                 - size: [x,y]. Size of each pixel for each dimension
                 - offset: [x,y]. Offset of the overall image
         """
@@ -212,10 +212,10 @@ class rField:
 
     def _from_rgb(self, rgb):
         """
-        translates an rgb tuple of int to a tkinter friendly color code
+        translates an rgb tuple of integers to hex
             Args:
-                - rgb: tuple of rgb values
+                - rgb: [tuple] tuple of rgb values
             Returns:
-                - rgb value translated to hex
+                - [string] rgb value translated to hex
         """
         return "#%02x%02x%02x" % rgb

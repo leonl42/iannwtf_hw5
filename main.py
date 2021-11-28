@@ -4,7 +4,7 @@ from util import load_data, test, visualize
 from model import MyModel
 import numpy as np
 from classify import classify
-from rField import rField
+from receiptive_field import ReceiptiveField
 
 tf.keras.backend.clear_session()
 
@@ -13,7 +13,7 @@ train_ds, valid_ds, test_ds = load_data()
 model = MyModel()
 
 # calculating receptive field
-rfield = rField()
+rfield = ReceiptiveField()
 # rfield for positon[0,0]
 rfield.add_rfield([0, 0])
 
