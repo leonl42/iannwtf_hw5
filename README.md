@@ -22,7 +22,7 @@ On the test set we get an accuracy of 0.9054.
 - some dropout and kernel_regualization (not all layers)
 
 ## Receiptive field of our model
-In our model we have the following layers:
+In our model we have the following layers which can change our receiptive field:
 
 |         |   type    | kernel/pool size | stride size | padding |
 |---------|-----------|------------------|-------------|---------|
