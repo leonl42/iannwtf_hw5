@@ -29,7 +29,10 @@ class MyModel(tf.keras.Model):
 
     def get_layers(self):
         """
-        Retuns list with all layers.
+        Returns list with all layers.
+
+          Returns:
+            - <list<tf.keras.layer>> list with the models layers
         """
         return [self.l1,self.l2,self.l3,self.l4,self.l5,self.l6,self.l7]
 
@@ -38,12 +41,12 @@ class MyModel(tf.keras.Model):
         """
         Performs a forward step in our MLP
           Args:
-            inputs: [tensor] our preprocessed input data, we send through our model
-            is_training: [bool] variable which determines if dropout is applied
+            inputs: <tf.tensor> our preprocessed input data, we send through our model
+            is_training: <bool> variable which determines if dropout is applied
           Results:
-            output: [tensor] the predicted output of our input data
+            output: <tf.tensor> the predicted output of our input data
         """
-
+        
         x = self.l1(inputs,training = is_training)
         x = self.l2(x,training = is_training)
         x = self.l3(x,training = is_training)

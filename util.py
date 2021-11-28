@@ -7,8 +7,10 @@ import tensorflow_datasets as tfds
 def load_data():
     """
     Loading and preprocessing the data.
-        Results:
-            train_ds,test_ds: the preprocessed datasets
+        Returns:
+          - train_ds: <tensorflow.python.data.ops.dataset_ops.PrefetchDataset> our training dataset
+          - valid_ds: <tensorflow.python.data.ops.dataset_ops.PrefetchDataset> our validation dataset
+          - test_ds: <tensorflow.python.data.ops.dataset_ops.PrefetchDataset> our test dataset
     """
 
     train_ds, valid_ds, test_ds, = tfds.load(name="fashion_mnist", split=['train[0%:80%]','train[80%:100%]','test'], as_supervised=True)
@@ -24,15 +26,22 @@ def preprocess(ds):
     """
     Preparing our data for our model.
       Args:
-        ds: the dataset we want to preprocess
-      Results:
-        ds: preprocessed dataset
-    """
-    ds = ds.map(lambda feature, target: (feature, tf.cast(target, tf.int32)))
-    ds = ds.map(lambda feature, target: (feature, tf.one_hot(target, 10)))
-    ds = ds.map(lambda feature, target: (
-        tf.cast(feature, tf.float32), tf.cast(target, tf.float32)))
+        - ds: <tensorflow.python.data.ops.dataset_ops.PrefetchDataset> the dataset we want to preprocess
 
+      Returns:
+        - ds: <tensorflow.python.data.ops.dataset_ops.PrefetchDataset> preprocessed dataset
+    """
+
+    # cast labels to int32 for one hot encoding
+    ds = ds.map(lambda feature, target: (feature, tf.cast(target, tf.int32)))
+
+    # one hot encode labels
+    ds = ds.map(lambda feature, target: (feature, tf.one_hot(target, 10)))
+
+    # cast everything to float32
+    ds = ds.map(lambda feature, target: (tf.cast(feature, tf.float32), tf.cast(target, tf.float32)))
+
+    # cache
     ds = ds.cache()
     # shuffle, batch, prefetch our dataset
     ds = ds.shuffle(5000)
@@ -45,13 +54,14 @@ def train_step(model, input, target, loss_function, optimizer, is_training):
     """
     Performs a forward and backward pass for  one dataponit of our training set
       Args:
-        model: [MyModel object] our created MLP model
-        input: [tensor] our input
-        target: [tensor] our target
-        loss_funcion: [keras function] function we used for calculating our loss
-        optimizer: [keras function] our optimizer used for packpropagation
-      Results:
-        loss: [float] our calculated loss for the datapoint
+        - model: <tf.keras.Model> our created MLP model
+        - input: <tf.tensor> our input
+        - target: <tf.tensor> our target
+        - loss_funcion: <keras function> function we used for calculating our loss
+        - optimizer: <keras function> our optimizer used for backpropagation
+
+      Returns:
+        - loss: <float> our calculated loss for the datapoint
       """
 
     with tf.GradientTape() as tape:
@@ -76,12 +86,13 @@ def test(model, test_data, loss_function, is_training):
     Test our MLP, by going through our testing dataset,
     performing a forward pass and calculating loss and accuracy
       Args:
-        model: [MyModel object] our created MLP model
-        test_data: [set of tuples with tensors] our preprocessed test dataset
-        loss_funcion: [keras function] function we used for calculating our loss
-      Results:
-          loss: [float] our mean loss for this epoch
-          accuracy: [float] our mean accuracy for this epoch
+        - model: <tf.keras.Model> our created MLP model
+        - test_data: <tensorflow.python.data.ops.dataset_ops.PrefetchDataset> our preprocessed test dataset
+        - loss_funcion: <keras function> function we used for calculating our loss
+
+      Returns:
+          - loss: <float> our mean loss for this epoch
+          - accuracy: <float> our mean accuracy for this epoch
     """
 
     # initializing lists for accuracys and loss
@@ -112,10 +123,10 @@ def test(model, test_data, loss_function, is_training):
 def visualize(train_losses, valid_losses, valid_accuracies):
     """
     Displays the losses and accuracies from the different models in a plot-grid.
-    Args:
-      train_losses = mean training losses per epoch
-      valid_losses = mean testing losses per epoch
-      valid_accuracies = mean accuracies (testing dataset) per epoch
+      Args:
+        - train_losses: <list> mean training losses per epoch
+        - valid_losses: <list> mean testing losses per epoch
+        - valid_accuracies: <list> mean accuracies (testing dataset) per epoch
     """
 
     fig, axs = plt.subplots(2,1)

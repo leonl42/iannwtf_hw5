@@ -8,14 +8,14 @@ class ReceiptiveField:
     """
     Compute the rfield for a given sequence of tensorflow layers
     Functions:
-        __init__: constructor
-        add_rfield: add a rfield
-        abstract_fields: translate the position of all fields into a higher layer
-        mutate_center: translate the size of all fields into a higher layer
-        compute_rfield_from_raw_values: compute the rfield given raw values
-        compute_rfield_from_layers: compute rfield given a list of tf layers
-        plot: plot the rfield onto a base image
-        _from_rgb: convert rgb color into tkinter color (source: https://stackoverflow.com/questions/51591456/can-i-use-rgb-in-tkinter/51592104)
+        - __init__: constructor
+        - add_rfield: add a rfield
+        - abstract_fields: translate the position of all fields into a higher layer
+        - mutate_center: translate the size of all fields into a higher layer
+        - compute_rfield_from_raw_values: compute the rfield given raw values
+        - compute_rfield_from_layers: compute rfield given a list of tf layers
+        - plot: plot the rfield onto a base image
+        - _from_rgb: convert rgb color into tkinter color (source: https://stackoverflow.com/questions/51591456/can-i-use-rgb-in-tkinter/51592104)
 
     """
 
@@ -29,7 +29,7 @@ class ReceiptiveField:
         """
         Add a rfield to the list of current rfields
             Args:
-                - r_field: [list] List of coordinates.
+                - r_field: <list<int>> List of coordinates.
         """
         self.r_field.append(r_field)
 
@@ -37,9 +37,9 @@ class ReceiptiveField:
         """
         Translate position of all currently stored rfields given the kernel_size, padding and stride
             Args:
-                - kernel: [list<int>] Kernel size of the layer in which to translate
-                - padding: [string] "same" or "valid"
-                - strides: [list<int>] Stride size of the layer in which to translate
+                - kernel: <list<int>> Kernel size of the layer in which to translate
+                - padding: <string> "same" or "valid"
+                - strides: <list<int>> Stride size of the layer in which to translate
         """
         new_r_fields = []
         for field in self.r_field:
@@ -78,11 +78,11 @@ class ReceiptiveField:
         In order to get the corresponding rfields of a higher layer, we have to reverse this process given
         the center on which the kernel produced the new field.
             Args: 
-                - center: [list<int>] The rfield which represents the center
-                - kernel: [list<int>] Kernel size of the layer in which to mutate
-                - size: [list<int>] Size of the layer in which to translate
+                - center: <list<int>> The rfield which represents the center
+                - kernel: <list<int>> Kernel size of the layer in which to mutate
+                - size: <list<int>> Size of the layer in which to translate
             Returns:
-                - [list<list<int>>] List of mutated/translated values
+                - to_mutate: <list<list<int>>> List of mutated/translated values
         """
         to_mutate = [center]
         # iterate over all dimensions of the kernel
@@ -128,10 +128,10 @@ class ReceiptiveField:
         """
         Compute the rfield from the raw values
             Args:
-                - kernels: [list<list<int>>] List of kernels
-                - padding: [list<list<int>>] List of paddings
-                - strides: [list<string>] List of strides
-                - img_size: [list<int>] List of integers. Size of the image for each dimension
+                - kernels: <list<list<int>>> List of kernels
+                - padding: <list<list<int>>> List of paddings
+                - strides: <list<string>> List of strides
+                - img_size: <list<int>> List of integers. Size of the image for each dimension
         """
         sizes = [img_size]
         for kernel, padding, stride in zip(kernels, paddings, strides):
@@ -161,8 +161,8 @@ class ReceiptiveField:
         """
         Compute rfield given list of tf layers
             Args:
-                - layers: [list] List of tf Conv2D or AveragePool2D layers
-                - img_size: [list<int>]. Size of the image for each dimension
+                - layers: <list> List of tf Conv2D or AveragePool2D layers
+                - img_size: <list<int>>. Size of the image for each dimension
         """
         kernels = []
         paddings = []
@@ -187,9 +187,9 @@ class ReceiptiveField:
         """
         Plot the rfield given a base image
             Args:
-                - image: [list<list<list<int>>>] Has to have the shape: (_,_,1), where 1 represents a list of a single grayscale value
-                - size: [x,y]. Size of each pixel for each dimension
-                - offset: [x,y]. Offset of the overall image
+                - image: <list<list<list<int>>>> Has to have the shape: (_,_,1), where 1 represents a list of a single grayscale value
+                - size: <[x,y]>. Size of each pixel for each dimension
+                - offset: <[x,y]>. Offset of the overall image
         """
         root = tkinter.Tk()
         root.geometry("600x600")
@@ -214,8 +214,9 @@ class ReceiptiveField:
         """
         translates an rgb tuple of integers to hex
             Args:
-                - rgb: [tuple] tuple of rgb values
+                - rgb: <tuple> tuple of rgb values
+
             Returns:
-                - [string] rgb value translated to hex
+                - rgb: <string> rgb value translated to hex
         """
         return "#%02x%02x%02x" % rgb
