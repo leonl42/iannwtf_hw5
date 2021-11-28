@@ -1,9 +1,11 @@
 # iannwtf_hw5
 
 ### Some parameters of our model:
+- datasets (number of elements): train_ds (48.000), valid_ds (12.000), train_ds (10.000) 
 - batch_size = 32  
 - learning_rate = 0.001
 - epochs = 15 
+- optimizer: Adam
 - some dropout and kernel_regualization (not all layers)
 
 ## Receiptive field of our model
