@@ -1,5 +1,4 @@
 import tensorflow as tf
-import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow_datasets as tfds
 
@@ -54,9 +53,9 @@ def train_step(model, input, target, loss_function, optimizer, is_training):
     """
     Performs a forward and backward pass for  one dataponit of our training set
       Args:
-        - model: <tf.keras.Model> our created MLP model
-        - input: <tf.tensor> our input
-        - target: <tf.tensor> our target
+        - model: <tensorflow.keras.Model> our created MLP model
+        - input: <tensorflow.tensor> our input
+        - target: <tensorflow.tensor> our target
         - loss_funcion: <keras function> function we used for calculating our loss
         - optimizer: <keras function> our optimizer used for backpropagation
 
@@ -86,7 +85,7 @@ def test(model, test_data, loss_function, is_training):
     Test our MLP, by going through our testing dataset,
     performing a forward pass and calculating loss and accuracy
       Args:
-        - model: <tf.keras.Model> our created MLP model
+        - model: <tensorflow.keras.Model> our created MLP model
         - test_data: <tensorflow.python.data.ops.dataset_ops.PrefetchDataset> our preprocessed test dataset
         - loss_funcion: <keras function> function we used for calculating our loss
 

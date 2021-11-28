@@ -13,7 +13,7 @@ class ReceptiveField:
         - abstract_fields: translate the position of all fields into a higher layer
         - mutate_center: translate the size of all fields into a higher layer
         - compute_rfield_from_raw_values: compute the rfield given raw values
-        - compute_rfield_from_layers: compute rfield given a list of tf layers
+        - compute_rfield_from_layers: compute rfield given a list of tensorflow layers
         - plot: plot the rfield onto a base image
         - _from_rgb: convert rgb color into tkinter color (source: https://stackoverflow.com/questions/51591456/can-i-use-rgb-in-tkinter/51592104)
 
@@ -159,9 +159,9 @@ class ReceptiveField:
 
     def compute_rfield_from_layers(self, layers, img_size):
         """
-        Compute rfield given list of tf layers
+        Compute rfield given list of tensorflow layers
             Args:
-                - layers: <list> List of tf Conv2D or AveragePool2D layers
+                - layers: <list> List of tensorflow layers
                 - img_size: <list<int>>. Size of the image for each dimension
         """
         kernels = []
