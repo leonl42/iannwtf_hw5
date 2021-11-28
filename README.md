@@ -12,7 +12,7 @@ To-Do:
 - computing rfield by hand
 - final commenting
 
-## rfield of our model
+## receiptive field of our model
 In our model we have the following layers:
 
 |         |   type    | kernel/pool size | stride size | padding |
@@ -21,19 +21,6 @@ In our model we have the following layers:
 | Layer_2 |  Conv2D   |       (3,3)      |    (1,1)    | "same"  |
 | Layer_3 | MaxPool2D |       (2,2)      |    (2,2)    | "same"  |
 | Layer_4 |  Conv2D   |       (9,9)      |    (1,1)    | "same"   |
-
-### Computing the output sizes
-As a first step, we have to know the output sizes of our layers and especially
-of our final layer. Due to the padding being "same" everywhere, we can
-just calculate INPUT_SIZE/STRIDE_SIZE for each dimension.
-Our image has a size of 28x28. 
-
-|         | Input size| Output size |
-|---------|-----------|-------------|
-| Layer_1 |  (28,28)  |   (28,28)   |
-| Layer_2 |  (28,28)  |   (28,28)   |
-| Layer_3 |  (28,28)  |   (14,14)   |
-| Layer_4 |  (14,14)  |   (14,14)   |
 
 ### Computing the receiptive field
 Our approach will be to calculate the receiptive field size recursively.
@@ -53,9 +40,24 @@ each dimension.
 | Layer_2 |        (20,20)        |
 | Layer_1 |        (24,24)        |
 
+### positioning of the receiptive field
+
+In order to know the positioning of the receiptive field, we have too
+calculate the output sizes of all layers. Due to the padding being "same" everywhere, 
+we can just calculate INPUT_SIZE/STRIDE_SIZE for each layer for each dimension.
+Our input image has a size of 28x28. 
+
+|         | Input size| Output size |
+|---------|-----------|-------------|
+| Layer_1 |  (28,28)  |   (28,28)   |
+| Layer_2 |  (28,28)  |   (28,28)   |
+| Layer_3 |  (28,28)  |   (14,14)   |
+| Layer_4 |  (14,14)  |   (14,14)   |
+
 Our output "image" has 14x14 = 196 different output cells.
-Each of these cells has a different receiptive field in Layer_1. (24,24)
-is the maximum receiptive field size an output cell can have. 
+Each of these cells has a different receiptive field in Layer_1. 
+(24,24) is the maximum receiptive field size an output cell can have. 
+
 For example, take the cell at (0,0) from the output image, due to the
 padding being "same", this cell will have a rather small receiptive field
 due to the padding cells in each layer being part of the field.
