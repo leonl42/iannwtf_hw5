@@ -36,7 +36,7 @@ class ReceptiveField:
     def abstract_fields(self, kernel, padding, stride, size):
         """
         Translate position of all currently stored receptive fields given the kernel_size, padding and stride
-        
+
             Args:
                 - kernel: <list<int>> Kernel size of the layer in which to translate
                 - padding: <string> "same" or "valid"
@@ -153,7 +153,7 @@ class ReceptiveField:
         kernels.reverse()
         paddings.reverse()
         strides.reverse()
-        # delete the last size because its the output size
+        # delete the last size because its the output size and we don't need that
         sizes.__delitem__(-1)
         sizes.reverse()
         for kernel, padding, stride, size in zip(kernels, paddings, strides, sizes):
