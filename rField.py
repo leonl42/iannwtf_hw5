@@ -179,6 +179,7 @@ class rField:
                     strides.append(list(layer.pool_size))
                 else:
                     strides.append(list(layer.strides))
+                    
         self.compute_rfield_from_raw_values(
             kernels, paddings, strides, img_size)
 
@@ -191,7 +192,7 @@ class rField:
                 - offset: [x,y]. Offset of the overall image
         """
         root = tkinter.Tk()
-        root.geometry("500x500")
+        root.geometry("600x600")
         canvas = tkinter.Canvas(root)
         canvas.pack()
 

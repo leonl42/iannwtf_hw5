@@ -11,3 +11,57 @@ Done:
 To-Do:
 - computing rfield by hand
 - final commenting
+
+## rfield of our model
+In our model we have the following layers:
+
+|         |   type    | kernel/pool size | stride size | padding |
+|---------|-----------|------------------|-------------|---------|
+| Layer_1 |  Conv2D   |       (5,5)      |    (1,1)    | "same"  |
+| Layer_2 |  Conv2D   |       (3,3)      |    (1,1)    | "same"  |
+| Layer_3 | MaxPool2D |       (2,2)      |    (2,2)    | "same"  |
+| Layer_4 |  Conv2D   |       (9,9)      |    (1,1)    | "same"   |
+
+### Computing the output sizes
+As a first step, we have to know the output sizes of our layers and especially
+of our final layer. Due to the padding being "same" everywhere, we can
+just calculate INPUT_SIZE/STRIDE_SIZE for each dimension.
+Our image has a size of 28x28. 
+
+|         | Input size| Output size |
+|---------|-----------|-------------|
+| Layer_1 |  (28,28)  |   (28,28)   |
+| Layer_2 |  (28,28)  |   (28,28)   |
+| Layer_3 |  (28,28)  |   (14,14)   |
+| Layer_4 |  (14,14)  |   (14,14)   |
+
+### Computing the receiptive field
+Our approach will be to calculate the receiptive field size for Layer_3, and 
+then calculate the receiptive field size for Layer_2 and so on.
+
+The formula for calculating the receiptive filed size for a higher (earlier)
+layer is: s * r + (k - s) where s is the stride, r the receiptive field size 
+of the current layer and k the kernel size. Note that we have to do this calculation for
+each dimension.
+
+|         | receiptive field size | 
+|---------|-----------------------|
+| Layer_1 |        (24,24)        |
+| Layer_2 |        (20,20)        |
+| Layer_3 |        (16,16)        |
+| Layer_4 |        (8,8)          |
+| Output  |        (1,1)          |
+
+Our output "image" has 14x14 = 196 different output cells.
+Each of these cells has a different receiptive field in Layer_1. (24,24)
+is the maximum receiptive field size an output cell can have. 
+For example, take the cell at (0,0) from the output image, due to the
+padding being "same", this cell will have a rather small receiptive field
+due to the padding cells in each layer being part of the field.
+
+![at (0,0)](img\rField(0,0).PNG)
+
+The receiptive field of the cell at (6,6) will be a lot bigger on the other
+hand, because the receiptive field contains no padding cells on any layer.
+
+![at (6,6)](img\rField(6,6).PNG)
