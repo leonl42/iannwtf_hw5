@@ -9,6 +9,5 @@ Done:
     - and the layer paramenters of course
     
 To-Do:
-- integrate layer in model
 - computing rfield by hand
 - final commenting

@@ -15,8 +15,20 @@ class MyModel(tf.keras.Model):
         """
 
         super(MyModel, self).__init__()
+        
+        # feature learning
+        l1 = tf.keras.layers.Conv2D(filters = 12, kernel_size = 5, strides=1,padding="same",activation='relu'),
+        l2 = tf.keras.layers.Conv2D(filters = 12, kernel_size = 3, strides=1,padding="same",activation='relu'),
+        l3 = tf.keras.layers.Dropout(0.2),
+        l4 = tf.keras.layers.MaxPool2D(pool_size = 2, strides = 2, padding="same"),
+        l5 = tf.keras.layers.Conv2D(filters = 32, kernel_size = 9, strides=1,padding="same", kernel_regularizer="l1_l2",activation='relu'),
+        l6 = tf.keras.layers.GlobalAvgPool2D(),
+        # classification
+        l7 = tf.keras.layers.Dense(10, kernel_regularizer="l1_l2", activation='softmax')
 
-        self._layers = layers
+    def get_layers(self):
+      return [self.l1,self.l2,self.l3,self.l4,self.l5,self.l6,self.l7]
+
 
     def call(self, inputs,is_training):
         """
@@ -27,8 +39,12 @@ class MyModel(tf.keras.Model):
             output: the predicted output of our input data
         """
 
-        output = inputs
-        for layer in self._layers:
-            output = layer(output,training=is_training)
-
+        x = self.l1(inputs,training = is_training)
+        x = self.l2(x,training = is_training)
+        x = self.l3(x,training = is_training)
+        x = self.l4(x,training = is_training)
+        x = self.l5(x,training = is_training)
+        x = self.l6(x,training = is_training)
+        output = self.l7(x,training = is_training)
+        
         return output
