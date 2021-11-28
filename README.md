@@ -9,7 +9,7 @@ can be seen in the model class.
 
 ### Performance of your model
 
-![performance](./img/Figure_1.PNG)
+![performance](./img/Figure_1.png)
 
 On the test set we get an accuracy of 0.9054.
 
