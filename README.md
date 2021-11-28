@@ -1,5 +1,18 @@
 # iannwtf_hw5
 
+## Our model
+
+Our model consists of 2 Conv2D layers, 1 dropout layer, 
+1 Max Pool2D layer, 1 Conv2D layer, 1 GlobalAverage2D layer and
+1 Dense layer (in this order). All respective parameters
+can be seen in the model class. 
+
+### Performance of your model
+
+![performance](./img/Figure_1.PNG)
+
+On the test set we get an accuracy of 0.9054.
+
 ### Some parameters of our model:
 - datasets (num of elements): train_ds (48.000), valid_ds (12.000), train_ds (10.000) 
 - batch_size = 32  
