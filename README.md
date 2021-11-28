@@ -12,7 +12,7 @@ To-Do:
 - computing rfield by hand
 - final commenting
 
-## receiptive field of our model
+## Receiptive field of our model
 In our model we have the following layers:
 
 |         |   type    | kernel/pool size | stride size | padding |
@@ -22,7 +22,7 @@ In our model we have the following layers:
 | Layer_3 | MaxPool2D |       (2,2)      |    (2,2)    | "same"  |
 | Layer_4 |  Conv2D   |       (9,9)      |    (1,1)    | "same"   |
 
-### Computing the receiptive field
+### Calculating the receiptive field
 Our approach will be to calculate the receiptive field size recursively.
 So we will first calculate the receiptive field size for Layer_4, then
 for Layer_3 and so on.
@@ -40,7 +40,7 @@ each dimension.
 | Layer_2 |        (20,20)        |
 | Layer_1 |        (24,24)        |
 
-### positioning of the receiptive field
+### Positioning of the receiptive field
 
 In order to know the positioning of the receiptive field, we have too
 calculate the output sizes of all layers. Due to the padding being "same" everywhere, 
