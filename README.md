@@ -9,7 +9,7 @@ Done:
     - and the layer paramenters of course
     
 To-Do:
-- computing rfield by hand
+- visualizing results
 - final commenting
 
 ## Receiptive field of our model
