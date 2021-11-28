@@ -59,9 +59,9 @@ For example, take the cell at (0,0) from the output image, due to the
 padding being "same", this cell will have a rather small receiptive field
 due to the padding cells in each layer being part of the field.
 
-![at (0,0)](./img/rField(0,0).PNG)
+![at (0,0)](./img/r_field(0,0).PNG)
 
 The receiptive field of the cell at (6,6) will be a lot bigger on the other
 hand, because the receiptive field contains no padding cells on any layer.
 
-![at (6,6)](./img/rField(6,6).PNG)
+![at (6,6)](./img/r_field(6,6).PNG)
