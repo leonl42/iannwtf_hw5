@@ -1,6 +1,6 @@
 # iannwtf_hw5
 
-## Some parameters of our model:
+### Some parameters of our model:
     - batch_size = 32  
     - learning_rate = 0.001
     - epochs = 15 
