@@ -6,6 +6,7 @@ class MyModel(tf.keras.Model):
     Our own custon MLP model, which inherits from the keras.Model class
       Functions:
         init: constructor of our model
+        get_layer: returns list with our layers
         call: performs forward pass of our model
     """
 
@@ -27,6 +28,9 @@ class MyModel(tf.keras.Model):
         self.l7 = tf.keras.layers.Dense(10, kernel_regularizer="l1_l2", activation='softmax')
 
     def get_layers(self):
+        """
+        Retuns list with all layers.
+        """
       return [self.l1,self.l2,self.l3,self.l4,self.l5,self.l6,self.l7]
 
 
@@ -34,9 +38,10 @@ class MyModel(tf.keras.Model):
         """
         Performs a forward step in our MLP
           Args:
-            inputs: our preprocessed input data, we send through our model
+            inputs: [tensor] our preprocessed input data, we send through our model
+            is_training: [bool] variable which determines if dropout is applied
           Results:
-            output: the predicted output of our input data
+            output: [tensor] the predicted output of our input data
         """
 
         x = self.l1(inputs,training = is_training)
