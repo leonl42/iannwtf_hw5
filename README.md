@@ -41,17 +41,17 @@ So we will first calculate the receiptive field size for Layer_4, then
 for Layer_3 and so on.
 
 The formula for calculating the receiptive field size for a higher (earlier)
-layer is: s * r + (k - s) where s is the stride, r the receiptive field size 
-of the current layer and k the kernel size. Note that we have to do this calculation for
+layer is: s * r + (k - s) where s is the stride of the higher layer, r the receiptive field size 
+of the current layer and k the kernel size of the higher layer. Note that we have to do this calculation for
 each dimension.
 
 |         | receiptive field size | 
 |---------|-----------------------|
-| Layer_1 |        (24,24)        |
-| Layer_2 |        (20,20)        |
-| Layer_3 |        (16,16)        |
-| Layer_4 |        (8,8)          |
 | Output  |        (1,1)          |
+| Layer_4 |        (8,8)          |
+| Layer_3 |        (16,16)        |
+| Layer_2 |        (20,20)        |
+| Layer_1 |        (24,24)        |
 
 Our output "image" has 14x14 = 196 different output cells.
 Each of these cells has a different receiptive field in Layer_1. (24,24)
