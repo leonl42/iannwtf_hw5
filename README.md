@@ -1,10 +1,10 @@
 # iannwtf_hw5
 
 ### Some parameters of our model:
-    - batch_size = 32  
-    - learning_rate = 0.001
-    - epochs = 15 
-    - some dropout and kerel_regualization (not all layers)
+- batch_size = 32  
+- learning_rate = 0.001
+- epochs = 15 
+- some dropout and kernel_regualization (not all layers)
 
 ## Receiptive field of our model
 In our model we have the following layers:
