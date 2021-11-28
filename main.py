@@ -28,7 +28,7 @@ with tf.device('/device:gpu:0'):
     
     # testing the trained model
     _, test_accuracy = test(trained_model, test_ds,tf.keras.losses.CategoricalCrossentropy(),False)
-    print("Accuracy:", test_accuracy)
+    print("Accuracy (test set):", test_accuracy)
     
     # visualizing losses and accuracy
     visualize(results[0],results[1],results[2])
