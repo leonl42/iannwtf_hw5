@@ -4,7 +4,7 @@ import tensorflow_datasets as tfds
 import tensorflow as tf
 
 
-class ReceiptiveField:
+class ReceptiveField:
     """
     Compute the rfield for a given sequence of tensorflow layers
     Functions:
