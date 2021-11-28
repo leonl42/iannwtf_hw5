@@ -12,7 +12,7 @@ train_ds, valid_ds, test_ds = load_data()
 
 model = MyModel()
 
-#calculating receptive field
+# calculating receptive field
 rfield = rField()
 # rfield for positon[0,0]
 rfield.add_rfield([0, 0])
