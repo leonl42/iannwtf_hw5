@@ -45,13 +45,13 @@ def train_step(model, input, target, loss_function, optimizer, is_training):
     """
     Performs a forward and backward pass for  one dataponit of our training set
       Args:
-        model: our created MLP model (MyModel object)
-        input: our input (tensor)
-        target: our target (tensor)
-        loss_funcion: function we used for calculating our loss (keras function)
-        optimizer: our optimizer used for packpropagation (keras function)
+        model: [MyModel object] our created MLP model
+        input: [tensor] our input
+        target: [tensor] our target
+        loss_funcion: [keras function] function we used for calculating our loss
+        optimizer: [keras function] our optimizer used for packpropagation
       Results:
-        loss: our calculated loss for the datapoint (float)
+        loss: [float] our calculated loss for the datapoint
       """
 
     with tf.GradientTape() as tape:
@@ -76,12 +76,12 @@ def test(model, test_data, loss_function, is_training):
     Test our MLP, by going through our testing dataset,
     performing a forward pass and calculating loss and accuracy
       Args:
-        model: our created MLP model (MyModel object)
-        test_data: our preprocessed test dataset (set of tuples with tensors)
-        loss_funcion: function we used for calculating our loss (keras function)
+        model: [MyModel object] our created MLP model
+        test_data: [set of tuples with tensors] our preprocessed test dataset
+        loss_funcion: [keras function] function we used for calculating our loss
       Results:
-          loss: our mean loss for this epoch (float)
-          accuracy: our mean accuracy for this epoch (float)
+          loss: [float] our mean loss for this epoch
+          accuracy: [float] our mean accuracy for this epoch
     """
 
     # initializing lists for accuracys and loss
